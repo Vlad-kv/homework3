@@ -38,7 +38,6 @@
 
             <TextView
                 android:textSize="30sp"
-                android:text="No internet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/informText" />
