@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private final String CONNECTIVITY_CHANGE = "android.net.conn.CONNECTIVITY_CHANGE";
 
     public static final String LOG_TAG = "log_from_main_activity";
+
+    public static Bitmap savedImage = null;
 
     private BroadcastReceiver downloadReceiver;
     private BroadcastReceiver connectivityChangeReceiver;
@@ -80,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
     void readFromFile() {
         File file = new File(getFilesDir(), FILE_NAME);
-        MyApplication.savedImage = null;
+        savedImage = null;
 
         if (file.exists()) {
-            MyApplication.savedImage = BitmapFactory.decodeFile(file.getAbsolutePath());
+            savedImage = BitmapFactory.decodeFile(file.getAbsolutePath());
         }
         setNormalState();
     }
@@ -104,12 +107,12 @@ public class MainActivity extends AppCompatActivity {
         informText.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
 
-        informText.setText("No file, no internet");
+        informText.setText(R.string.no_internet_state_text);
     }
 
     void setErrorState() {
         setNoInternetState();
-        informText.setText("No file, error in downloading");
+        informText.setText(R.string.error_state_text);
     }
 
     void setInDownloadingState() {
@@ -118,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         informText.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
-        informText.setText("Downloading");
+        informText.setText(R.string.in_downloading_state_text);
     }
 
     void setNormalState() {
@@ -127,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         informText.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
 
-        myImageView.setImageBitmap(MyApplication.savedImage);
+        myImageView.setImageBitmap(savedImage);
     }
 
     @Override
@@ -135,10 +138,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         initViews();
         initReceivers();
-
 
         tryToShow();
     }
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void tryToShow() {
-        if (MyApplication.savedImage != null) {
+        if (savedImage != null) {
             Log.d(LOG_TAG, "showing existing image");
             setNormalState();
             return;
@@ -174,14 +175,13 @@ public class MainActivity extends AppCompatActivity {
 
     void reset() {
         if (LoadingService.isItRunningNow) {
-            //LoadingService.it.stop();
-            stopService(new Intent(""));
+            return;
         }
         File file = new File(getFilesDir(), FILE_NAME);
         if (file.exists()) {
             file.delete();
         }
-        MyApplication.savedImage = null;
+        savedImage = null;
 
         tryToShow();
     }

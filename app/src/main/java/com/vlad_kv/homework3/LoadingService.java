@@ -73,18 +73,8 @@ public class LoadingService extends Service implements Runnable {
             byte[] buffer = new byte[1024 * 8];
             int size = inputStream.read(buffer);
             while (size >= 0) {
-                Log.d(LOG_TAG, String.valueOf(size));
-
                 outputStream.write(buffer, 0, size);
-
-                Log.d(LOG_TAG, "center");
-
-                Log.d(LOG_TAG, "num_av : " + String.valueOf(inputStream.available()));
-
-
                 size = inputStream.read(buffer);
-
-                Log.d(LOG_TAG, "edt");
             }
             connection.disconnect();
 
@@ -130,25 +120,6 @@ public class LoadingService extends Service implements Runnable {
         isItRunningNow = false;
         Log.d(LOG_TAG, "onDestroy!!!");
         it = null;
-
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">homework3</string>
+
+    <string name="no_internet_state_text">No file, no internet</string>
+    <string name="error_state_text">No file, error in downloading</string>
+    <string name="in_downloading_state_text">Downloading</string>>
 </resources>
