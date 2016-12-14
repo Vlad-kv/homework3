@@ -7,8 +7,6 @@
 .idea/
 
 
-.gradle/
-
 .DS_Store
 /build
 /captures
@@ -17,12 +15,11 @@
 gradle/wrapper/gradle-wrapper.jar
 gradlew
 gradlew.bat
-settings.gradle
-gradle.properties
+
 gradle/wrapper/gradle-wrapper.properties
 .idea/modules.xml
 .idea/vcs.xml
 app/proguard-rules.pro
 app/src/androidTest/java/com/vlad_kv/homework3/ExampleInstrumentedTest.java
-build.gradle
 app/src/test/java/com/vlad_kv/homework3/ExampleUnitTest.java
+gradle.properties
